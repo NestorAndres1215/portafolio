@@ -1,0 +1,263 @@
+---
+---
+<section id="contacto" class="contacto">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="contacto-container">
+
+    <!-- Label -->
+    <div class="section-label">
+      <i class="fa-solid fa-envelope"></i>
+      <span id="contacto-label">Contacto</span>
+    </div>
+
+    <h2 class="contacto-title">
+      <span id="contacto-titulo">¿Hablamos</span><span class="dot">?</span>
+    </h2>
+
+    <p class="contacto-text" id="contacto-texto">
+      Si quieres trabajar conmigo o tienes alguna pregunta,<br/>
+      no dudes en escribirme.
+    </p>
+
+    <!-- Cards de contacto -->
+    <div class="contacto-cards">
+
+      <a href="mailto:atiroandres@gmail.com" class="contact-card contact-card--email">
+        <div class="contact-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label" id="link-email">Email</span>
+          <span class="contact-value">atiroandres@gmail.com</span>
+        </div>
+        <i class="fa-solid fa-arrow-right contact-arrow"></i>
+      </a>
+
+      <a href="https://github.com/NestorAndres1215" target="_blank" rel="noopener" class="contact-card contact-card--github">
+        <div class="contact-icon">
+          <i class="fa-brands fa-github"></i>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label" id="link-github">GitHub</span>
+          <span class="contact-value">github.com/NestorAndres1215</span>
+        </div>
+        <i class="fa-solid fa-arrow-right contact-arrow"></i>
+      </a>
+
+      <a href="https://www.linkedin.com/in/nestorat/" target="_blank" rel="noopener" class="contact-card contact-card--linkedin">
+        <div class="contact-icon">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </div>
+        <div class="contact-info">
+          <span class="contact-label" id="link-linkedin">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/nestorat/</span>
+        </div>
+        <i class="fa-solid fa-arrow-right contact-arrow"></i>
+      </a>
+
+    </div>
+
+    <p class="contacto-footer">
+      <i class="fa-solid fa-clock"></i>
+      <span id="contacto-respuesta">Respondo en menos de 24 horas</span>
+    </p>
+
+  </div>
+</section>
+
+<script>
+  import { translations, type Lang } from '../i18n/translations';
+
+  let lang: Lang = (localStorage.getItem('lang') as Lang) || 'es';
+
+  function applyLang(l: Lang) {
+    const t = translations[l].contacto;
+    document.getElementById('contacto-label')!.textContent     = t.label;
+    document.getElementById('contacto-titulo')!.textContent    = t.titulo.replace('?', '');
+    document.getElementById('contacto-texto')!.textContent     = t.texto;
+    document.getElementById('contacto-respuesta')!.textContent = t.respuesta;
+    document.getElementById('link-email')!.textContent         = t.links.email;
+    document.getElementById('link-github')!.textContent        = t.links.github;
+    document.getElementById('link-linkedin')!.textContent      = t.links.linkedin;
+  }
+
+  applyLang(lang);
+  window.addEventListener('lang-change', (e: any) => {
+    lang = e.detail;
+    applyLang(lang);
+  });
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .contacto {
+    position: relative;
+    background: #0b0f1a;
+    padding: 100px 24px 80px;
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .bg-glow {
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contacto-container {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.2);
+    color: #818cf8;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .section-label i { font-size: 11px; }
+
+  .contacto-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
+    color: #f1f5f9;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+  .dot { color: #818cf8; }
+
+  .contacto-text {
+    color: #475569;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .contacto-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .contact-card--email:hover {
+    border-color: rgba(129,140,248,0.3);
+    background: rgba(99,102,241,0.05);
+    box-shadow: 0 0 30px rgba(99,102,241,0.08);
+    transform: translateX(6px);
+  }
+  .contact-card--github:hover {
+    border-color: rgba(148,163,184,0.3);
+    background: rgba(148,163,184,0.04);
+    box-shadow: 0 0 30px rgba(148,163,184,0.06);
+    transform: translateX(6px);
+  }
+  .contact-card--linkedin:hover {
+    border-color: rgba(56,189,248,0.3);
+    background: rgba(56,189,248,0.04);
+    box-shadow: 0 0 30px rgba(56,189,248,0.07);
+    transform: translateX(6px);
+  }
+
+  .contact-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .contact-card--email  .contact-icon { background: rgba(99,102,241,0.12);  color: #818cf8; }
+  .contact-card--github .contact-icon { background: rgba(148,163,184,0.1);  color: #94a3b8; }
+  .contact-card--linkedin .contact-icon { background: rgba(56,189,248,0.12); color: #38bdf8; }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .contact-label {
+    font-size: 11px;
+    color: #334155;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  .contact-value {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 400;
+  }
+
+  .contact-arrow {
+    font-size: 13px;
+    color: #1e293b;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .contact-card:hover .contact-arrow {
+    color: #64748b;
+    transform: translateX(4px);
+  }
+  .contacto-footer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #1e293b;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .contacto-footer i { color: #818cf8; font-size: 11px; }
+
+  @media (max-width: 480px) {
+    .contact-value { font-size: 12px; }
+    .contact-icon  { width: 40px; height: 40px; font-size: 16px; }
+  }
+</style>

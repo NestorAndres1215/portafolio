@@ -1,0 +1,384 @@
+---
+
+---
+
+
+<section id="inicio" class="inicio">
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+
+    <div class="inicio-contenido">
+        <div class="badge">
+            <span class="badge-dot"></span>
+            <span id="hero-badge">Disponible para trabajar</span>
+        </div>
+
+        <h1>
+            <span id="hero-tittle">Hola, soy</span><br /><span class="highlight"
+                >Nestor Andres</span
+            >
+        </h1>
+
+        <p class="rol">
+            <i class="fa-solid fa-terminal"></i>
+            <span id="typewriter"></span><span class="cursor">|</span>
+        </p>
+
+        <p class="descripcion" id="hero-desc">
+            Construyo aplicaciones robustas con Java en el backend y
+            experiencias modernas en el frontend.
+        </p>
+
+        <div class="btns">
+            <a href="#proyectos" class="btn btn--primary">
+                <i class="fa-solid fa-folder-open"></i>
+                <span id="hero-btn1">Ver proyectos</span>
+            </a>
+            <a href="#contacto" class="btn btn--ghost">
+                <i class="fa-solid fa-envelope"></i>
+                <span id="hero-btn2">Contacto</span>
+            </a>
+        </div>
+
+        <div class="stack">
+            <span class="stack-label">Stack</span>
+            <div class="stack-chips">
+                <span class="chip"><i class="fa-brands fa-java"></i> Java</span>
+                <span class="chip"><i class="fa-brands fa-vuejs"></i> Vue</span>
+                <span class="chip"
+                    ><i class="fa-brands fa-js"></i> JavaScript</span
+                >
+                <span class="chip"><i class="fa-solid fa-leaf"></i> Spring</span
+                >
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { translations, type Lang } from "../i18n/translations";
+
+    let lang: Lang = (localStorage.getItem("lang") as Lang) || "es";
+    let wi = 0,
+        ci = 0,
+        deleting = false;
+    let currentRoles = translations[lang].hero.roles;
+    const el = document.getElementById("typewriter")!;
+
+    function type() {
+        const word = currentRoles[wi];
+        if (!deleting) {
+            el.textContent = word.slice(0, ++ci);
+            if (ci === word.length) {
+                deleting = true;
+                setTimeout(type, 1800);
+                return;
+            }
+        } else {
+            el.textContent = word.slice(0, --ci);
+            if (ci === 0) {
+                deleting = false;
+                wi = (wi + 1) % currentRoles.length;
+            }
+        }
+        setTimeout(type, deleting ? 60 : 100);
+    }
+    type();
+
+    function applyLang(l: Lang) {
+        const t = translations[l].hero;
+        document.getElementById("hero-tittle")!.textContent = t.tittle;
+        document.getElementById("hero-badge")!.textContent = t.badge;
+        document.getElementById("hero-desc")!.textContent = t.descripcion;
+        document.getElementById("hero-btn1")!.textContent = t.verProyectos;
+        document.getElementById("hero-btn2")!.textContent = t.contacto;
+        currentRoles = t.roles;
+        wi = 0;
+        ci = 0;
+        deleting = false;
+    }
+
+    applyLang(lang);
+
+    window.addEventListener("lang-change", (e: any) => {
+        lang = e.detail;
+        applyLang(lang);
+    });
+</script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap");
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .inicio {
+        position: relative;
+        min-height: 100vh;
+        background: #0b0f1a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        font-family: "DM Sans", sans-serif;
+        padding: 100px 24px 60px;
+    }
+    .bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.03) 1px,
+                transparent 1px
+            );
+        background-size: 40px 40px;
+        pointer-events: none;
+    }
+    .bg-glow {
+        position: absolute;
+        top: -220px;
+        left: 50%;
+        transform: translateX(-60%);
+        width: 800px;
+        height: 600px;
+        background: radial-gradient(
+            ellipse,
+            rgba(99, 102, 241, 0.12) 0%,
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float linear infinite;
+    }
+    .orb--1 {
+        width: 6px;
+        height: 6px;
+        background: #818cf8;
+        top: 20%;
+        left: 15%;
+        opacity: 0.5;
+        animation-duration: 8s;
+        box-shadow: 0 0 12px #818cf8;
+    }
+    .orb--2 {
+        width: 4px;
+        height: 4px;
+        background: #4ade80;
+        top: 60%;
+        right: 20%;
+        opacity: 0.4;
+        animation-duration: 11s;
+        box-shadow: 0 0 10px #4ade80;
+    }
+    .orb--3 {
+        width: 5px;
+        height: 5px;
+        background: #fbbf24;
+        bottom: 25%;
+        left: 30%;
+        opacity: 0.35;
+        animation-duration: 14s;
+        box-shadow: 0 0 10px #fbbf24;
+    }
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .inicio-contenido {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 700px;
+        animation: fadeUp 0.7s ease both;
+    }
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(32px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 999px;
+        background: rgba(74, 222, 128, 0.08);
+        border: 1px solid rgba(74, 222, 128, 0.2);
+        color: #4ade80;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 28px;
+    }
+    .badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #4ade80;
+        box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
+    }
+
+    h1 {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(42px, 8vw, 72px);
+        font-weight: 800;
+        color: #f1f5f9;
+        letter-spacing: -2px;
+        line-height: 1.05;
+        margin-bottom: 24px;
+    }
+    .highlight {
+        color: transparent;
+        background: linear-gradient(135deg, #818cf8, #6366f1);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    .rol {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: clamp(16px, 2.5vw, 20px);
+        color: #818cf8;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+    .cursor {
+        animation: blink 0.9s step-end infinite;
+        color: #818cf8;
+    }
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .descripcion {
+        color: #475569;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.7;
+        margin-bottom: 36px;
+    }
+
+    .btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 44px;
+    }
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 26px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+            transform 0.15s,
+            box-shadow 0.15s;
+        font-family: "Syne", sans-serif;
+    }
+    .btn--primary {
+        background: linear-gradient(135deg, #6366f1, #818cf8);
+        color: #fff;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+    }
+    .btn--primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(99, 102, 241, 0.5);
+    }
+    .btn--ghost {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #94a3b8;
+    }
+    .btn--ghost:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        color: #e2e8f0;
+    }
+
+    .stack {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .stack-label {
+        font-size: 11px;
+        color: #334155;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+    }
+    .stack-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        color: #475569;
+        font-size: 12px;
+        font-weight: 500;
+        transition:
+            color 0.2s,
+            border-color 0.2s;
+    }
+    .chip i {
+        font-size: 11px;
+        color: #818cf8;
+    }
+    .chip:hover {
+        color: #cbd5e1;
+        border-color: rgba(129, 140, 248, 0.3);
+    }
+</style>

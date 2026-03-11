@@ -1,0 +1,399 @@
+---
+
+---
+
+
+<section id="sobre" class="sobre">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="sobre-container">
+    <div class="section-label">
+      <i class="fa-solid fa-user"></i>
+      <span id="sobre-label">Sobre mí</span>
+    </div>
+    <h2 class="sobre-title">
+      <span id="sobre-titulo">¿Quién soy</span><span class="dot">?</span>
+    </h2>
+
+    <div class="sobre-grid">
+  
+      <div class="sobre-left">
+        <p class="sobre-text" id="sobre-texto1">
+          Soy desarrollador enfocado en <strong>Java</strong>, <strong
+            >APIs REST</strong
+          >
+          y desarrollo web moderno. Me gusta construir soluciones eficientes y proyectos
+          de automatización que resuelvan problemas reales.
+        </p>
+        <p class="sobre-text" id="sobre-texto2">
+          Disfruto aprender nuevas tecnologías, colaborar en equipo y escribir
+          código limpio que sea fácil de mantener y escalar.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-num">2+</span>
+            <span class="stat-label" id="stat-exp">Años de experiencia</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">10+</span>
+            <span class="stat-label" id="stat-proj">Proyectos completados</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">5+</span>
+            <span class="stat-label" id="stat-tech">Tecnologías dominadas</span>
+          </div>
+        </div>
+
+        <a href="/cv.pdf" download class="btn-cv">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span id="sobre-cv">Descargar CV</span>
+          <span class="btn-cv__badge">PDF</span>
+        </a>
+      </div>
+
+      <div class="sobre-right">
+        <div class="focus-card">
+          <div class="focus-icon focus-icon--blue">
+            <i class="fa-brands fa-java"></i>
+          </div>
+          <div>
+            <h3 id="card1-titulo">Backend Java</h3>
+            <p id="card1-texto">
+              APIs REST, Spring Boot, arquitecturas limpias y escalables.
+            </p>
+          </div>
+        </div>
+
+        <div class="focus-card">
+          <div class="focus-icon focus-icon--indigo">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <div>
+            <h3 id="card2-titulo">Desarrollo Web</h3>
+            <p id="card2-texto">
+              Interfaces modernas con Vue, JS y buenas prácticas de UX.
+            </p>
+          </div>
+        </div>
+
+        <div class="focus-card">
+          <div class="focus-icon focus-icon--green">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <h3 id="card3-titulo">Automatización</h3>
+            <p id="card3-texto">
+              Scripts, herramientas y flujos que ahorran tiempo y errores.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { translations, type Lang } from "../i18n/translations";
+
+  let lang: Lang = (localStorage.getItem("lang") as Lang) || "es";
+
+  function applyLang(l: Lang) {
+    const t = translations[l].sobre;
+    document.getElementById("sobre-label")!.textContent = t.label;
+    document.getElementById("sobre-titulo")!.textContent = t.titulo.replace(
+      "?",
+      "",
+    );
+    document.getElementById("sobre-texto1")!.textContent = t.texto1;
+    document.getElementById("sobre-texto2")!.textContent = t.texto2;
+    document.getElementById("stat-exp")!.textContent = t.stats.experiencia;
+    document.getElementById("stat-proj")!.textContent = t.stats.proyectos;
+    document.getElementById("stat-tech")!.textContent = t.stats.tecnologias;
+    document.getElementById("sobre-cv")!.textContent = t.descargarCV;
+    document.getElementById("card1-titulo")!.textContent =
+      t.cards.backend.titulo;
+    document.getElementById("card1-texto")!.textContent = t.cards.backend.texto;
+    document.getElementById("card2-titulo")!.textContent = t.cards.web.titulo;
+    document.getElementById("card2-texto")!.textContent = t.cards.web.texto;
+    document.getElementById("card3-titulo")!.textContent = t.cards.auto.titulo;
+    document.getElementById("card3-texto")!.textContent = t.cards.auto.texto;
+  }
+
+  applyLang(lang);
+
+  window.addEventListener("lang-change", (e: any) => {
+    lang = e.detail;
+    applyLang(lang);
+  });
+</script>
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap");
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sobre {
+    position: relative;
+    background: #0b0f1a;
+    padding: 100px 24px 80px;
+    font-family: "DM Sans", sans-serif;
+    overflow: hidden;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .bg-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(
+      ellipse,
+      rgba(99, 102, 241, 0.08) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .sobre-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .section-label i {
+    font-size: 11px;
+  }
+  .sobre-title {
+    font-family: "Syne", sans-serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    color: #f1f5f9;
+    letter-spacing: -1.5px;
+    margin-bottom: 48px;
+  }
+  .dot {
+    color: #818cf8;
+  }
+
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .sobre-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sobre-text {
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .sobre-text strong {
+    color: #818cf8;
+    font-weight: 600;
+  }
+
+  .stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+  }
+
+  .stat {
+    text-align: center;
+    flex: 1;
+  }
+  .stat-num {
+    display: block;
+    font-family: "Syne", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #818cf8;
+    letter-spacing: -1px;
+  }
+  .stat-label {
+    display: block;
+    font-size: 11px;
+    color: #334155;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+  }
+
+  .btn-cv {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 24px;
+    border-radius: 12px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    color: #94a3b8;
+    font-family: "Syne", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    -webkit-text-decoration: none;
+    width: fit-content;
+    transition:
+      transform 0.15s,
+      background 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      box-shadow 0.2s;
+  }
+  .btn-cv i {
+    font-size: 15px;
+    color: #818cf8;
+    transition: transform 0.2s;
+  }
+  .btn-cv:hover {
+    transform: translateY(-2px);
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(129, 140, 248, 0.4);
+    color: #e2e8f0;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.2);
+  }
+  .btn-cv:hover i {
+    transform: translateY(2px);
+  }
+  .btn-cv:active {
+    transform: translateY(0);
+  }
+
+  .btn-cv__badge {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(129, 140, 248, 0.15);
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    color: #818cf8;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .sobre-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .focus-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    transition:
+      border-color 0.2s,
+      background 0.2s,
+      transform 0.2s;
+  }
+  .focus-card:hover {
+    border-color: rgba(129, 140, 248, 0.25);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+  }
+
+  .focus-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .focus-icon--blue {
+    background: rgba(59, 130, 246, 0.12);
+    color: #60a5fa;
+  }
+  .focus-icon--indigo {
+    background: rgba(99, 102, 241, 0.12);
+    color: #818cf8;
+  }
+  .focus-icon--green {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+  }
+
+  .focus-card h3 {
+    font-family: "Syne", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #e2e8f0;
+    margin-bottom: 4px;
+  }
+  .focus-card p {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .sobre-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .stats {
+      gap: 16px;
+    }
+    .btn-cv {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

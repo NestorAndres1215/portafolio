@@ -1,0 +1,52 @@
+---
+
+---
+
+<button id="lang-toggle" class="lang-toggle">
+  <i class="fa-solid fa-globe"></i>
+  <span id="lang-label">ES</span>
+</button>
+
+<script>
+  const btn = document.getElementById("lang-toggle")!;
+  const label = document.getElementById("lang-label")!;
+  let current: "es" | "en" =
+    (localStorage.getItem("lang") as "es" | "en") || "es";
+  label.textContent = current.toUpperCase();
+
+  btn.addEventListener("click", () => {
+    current = current === "es" ? "en" : "es";
+    localStorage.setItem("lang", current);
+    label.textContent = current.toUpperCase();
+    window.dispatchEvent(new CustomEvent("lang-change", { detail: current }));
+  });
+</script>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Syne", sans-serif;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+  .lang-toggle:hover {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(129, 140, 248, 0.2);
+    color: #818cf8;
+  }
+  .lang-toggle i {
+    font-size: 12px;
+  }
+</style>

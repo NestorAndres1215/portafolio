@@ -1,0 +1,142 @@
+---
+import { projects } from "../data/projects";
+import ProjectCard from "./ProjectCard.astro";
+---
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<section id="proyectos" class="proyectos">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="proyectos-container">
+
+    <div class="section-label">
+      <i class="fa-solid fa-folder-open"></i>
+      <span id="proy-label">Portafolio</span>
+    </div>
+
+    <h2 class="proyectos-title">
+      <span id="proy-titulo">Proyectos</span><span class="dot">.</span>
+    </h2>
+    <p class="proyectos-sub" id="proy-sub">
+      Algunos de los proyectos que he construido
+    </p>
+
+    <div class="proyectos-grid">
+      {projects.map(project => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { translations, type Lang } from '../i18n/translations';
+
+  let lang: Lang = (localStorage.getItem('lang') as Lang) || 'es';
+
+  function applyLang(l: Lang) {
+    const t = translations[l].proyectos;
+    document.getElementById('proy-label')!.textContent  = t.label;
+    document.getElementById('proy-titulo')!.textContent = t.titulo;
+    document.getElementById('proy-sub')!.textContent    = t.sub;
+
+    document.querySelectorAll('.btn-code-text').forEach(el => {
+      el.textContent = t.verCodigo;
+    });
+  }
+
+  applyLang(lang);
+  window.addEventListener('lang-change', (e: any) => {
+    lang = e.detail;
+    applyLang(lang);
+  });
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .proyectos {
+    position: relative;
+    background: #0b0f1a;
+    padding: 100px 24px 80px;
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .bg-glow {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .proyectos-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.2);
+    color: #818cf8;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .section-label i { font-size: 11px; }
+
+  .proyectos-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    color: #f1f5f9;
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+  }
+  .dot { color: #818cf8; }
+
+  .proyectos-sub {
+    color: #475569;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 56px;
+  }
+
+  .proyectos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .proyectos-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 580px) {
+    .proyectos-grid { grid-template-columns: 1fr; }
+  }
+</style>
